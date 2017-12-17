@@ -41,8 +41,8 @@ class App {
                     instance.channel.send('(｡･ω･｡) ?');
                 }
                 
-                const handler = new CommandHandler(client);
-                handler.handleRequest(instance, message);
+                //const handler = new CommandHandler(client);
+                //handler.handleRequest(instance, message);
             }
         });
     
@@ -51,8 +51,10 @@ class App {
     }
 
     startCli() {
+        const handler = new CommandHandler();
         readLine.on('line', (line: string) => {
             console.log(line);
+            handler.handleRequest(line);
         })
     }
 }
