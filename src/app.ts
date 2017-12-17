@@ -54,12 +54,15 @@ class App {
     startCli() {
         const handler = new CommandHandler();
         readLine.on('line', (line: string) => {
-            console.log(line);
-            const action = line.split(" ")[0];
             const params = parseArgs(line.split(" "));
-            console.log(params);
-            // handler.handleRequest(line);
-        })
+            console.log('DEBUG>', params);
+            const action = params._;
+            delete params._;
+            
+            handler.handleRequest(action, params).then(response => {
+                console.log(response);
+            });
+        });
     }
 }
 

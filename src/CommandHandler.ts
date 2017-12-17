@@ -12,7 +12,7 @@ export class CommandHandler {
             if (this.handlers[action]) {
                 resolve(this.handlers[action](params));
             } else {
-                reject(`Unknown action: ${action}`);
+                resolve(`Unknown action: ${action}`);
             }
         });
     }
