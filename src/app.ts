@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const parseArgs = require('minimist');
 const readLine = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -54,7 +55,10 @@ class App {
         const handler = new CommandHandler();
         readLine.on('line', (line: string) => {
             console.log(line);
-            handler.handleRequest(line);
+            const action = line.split(" ")[0];
+            const params = parseArgs(line.split(" "));
+            console.log(params);
+            // handler.handleRequest(line);
         })
     }
 }
