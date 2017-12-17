@@ -2,18 +2,22 @@ const _ = require('lodash');
 
 import { AppConfig } from './../AppConfig';
 import { IFunctionMap } from './command/IFunctionMap';
-import { CommandHandlers } from './command/CommandHandlers'
+import { CommandRepository } from './command/CommandRepository'
 
 export class CommandHandler {
-    handlers: IFunctionMap = CommandHandlers;
+    commandRepository: CommandRepository
+
+    constructor() {
+        this.commandRepository = new CommandRepository();
+    }
 
     handleRequest(action: string, params:any):Promise<string> {
         return new Promise((resolve, reject) => {
-            if (this.handlers[action]) {
-                resolve(this.handlers[action](params));
-            } else {
-                resolve(`Unknown action: ${action}`);
+            const command = this.commandRepository.Get(action);
+            if (command) {
+                resolve(command(params));
             }
+            resolve(`Action not found: ${action}.`);
         });
     }
 }

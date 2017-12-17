@@ -1,3 +1,3 @@
 export interface IFunctionMap {
-    [key: string]: (parameters:any) => Promise<string>;
+    Get(action: string, parameters:any): (params: any) => Promise<string>;
 }
